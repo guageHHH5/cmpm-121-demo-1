@@ -21,8 +21,8 @@ button.style.cursor = "pointer";
 let clickcount = 0;
 
 button.addEventListener("click", () => {
-    clickcount++;
-    counter!.innerHTML = `${clickcount} cookie(s)`;
+  clickcount++;
+  counter!.innerHTML = `${clickcount} cookie(s)`;
 });
 
 buttonContainer?.append(button);
