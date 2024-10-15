@@ -40,8 +40,8 @@ const animatedIncrement = (timestamp: number) => {
   const deltaT = (timestamp - lastFrame) / 1000;
   lastFrame = timestamp;
 
-  if(autoIncRate > 0){
-    clickcount += (autoIncRate * deltaT);
+  if (autoIncRate > 0) {
+    clickcount += autoIncRate * deltaT;
     countUpdate();
   }
 
@@ -54,11 +54,11 @@ button.addEventListener("click", () => {
 });
 
 upgradeButton.addEventListener("click", () => {
-    if(clickcount >= 10){
-        clickcount -= 10;
-        autoIncRate += 1;
-        countUpdate();
-    }
+  if (clickcount >= 10) {
+    clickcount -= 10;
+    autoIncRate += 1;
+    countUpdate();
+  }
 });
 
 buttonContainer?.append(button);
