@@ -27,15 +27,15 @@ const countUpdate = () => {
 };
 
 const animatedIncrement = (timestamp: number) => {
-    if(!lastFrame) lastFrame = timestamp;
+  if (!lastFrame) lastFrame = timestamp;
 
-    const deltaT = (timestamp - lastFrame) / 1000;
-    lastFrame = timestamp;
+  const deltaT = (timestamp - lastFrame) / 1000;
+  lastFrame = timestamp;
 
-    clickcount += deltaT;
-    countUpdate();
+  clickcount += deltaT;
+  countUpdate();
 
-    requestAnimationFrame(animatedIncrement);
+  requestAnimationFrame(animatedIncrement);
 };
 
 button.addEventListener("click", () => {
