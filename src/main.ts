@@ -20,13 +20,13 @@ button.style.cursor = "pointer";
 
 let clickcount = 0;
 
-const countUpdate = ()=>{
-    counter!.innerHTML = `${clickcount} cookie(s)`;
-}
+const countUpdate = () => {
+  counter!.innerHTML = `${clickcount} cookie(s)`;
+};
 
-setInterval(()=>{
-    clickcount++;
-    countUpdate();
+setInterval(() => {
+  clickcount++;
+  countUpdate();
 }, 1000);
 
 button.addEventListener("click", () => {
