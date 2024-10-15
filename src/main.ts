@@ -20,23 +20,31 @@ button.style.cursor = "pointer";
 
 let clickcount = 0;
 let hasClicked = false;
+let lastFrame = 0;
 
 const countUpdate = () => {
-  counter!.innerHTML = `${clickcount} cookie(s)`;
+  counter!.innerHTML = `${clickcount.toFixed(0)} cookie(s)`;
 };
 
+const animatedIncrement = (timestamp: number) => {
+    if(!lastFrame) lastFrame = timestamp;
+
+    const deltaT = (timestamp - lastFrame) / 1000;
+    lastFrame = timestamp;
+
+    clickcount += deltaT;
+    countUpdate();
+
+    requestAnimationFrame(animatedIncrement);
+};
 
 button.addEventListener("click", () => {
   clickcount++;
   countUpdate();
 
-  if(!hasClicked){
+  if (!hasClicked) {
     hasClicked = true;
-
-    setInterval(() => {
-        clickcount++;
-        countUpdate();
-      }, 1000);      
+    requestAnimationFrame(animatedIncrement);
   }
 });
 
