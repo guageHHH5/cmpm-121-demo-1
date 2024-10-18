@@ -26,9 +26,9 @@ let clickcount = 0;
 let lastFrame = 0;
 let totalgrowth = 0;
 const upgrades = [
-  { name: "A", cost: 10, growthRate: 0.1, count: 0 },
-  { name: "B", cost: 100, growthRate: 2.0, count: 0 },
-  { name: "C", cost: 1000, growthRate: 50.0, count: 0 },
+  { name: "A", baseCost: 10, cost: 10, growthRate: 0.1, count: 0 },
+  { name: "B", baseCost: 100, cost: 100, growthRate: 2.0, count: 0 },
+  { name: "C", baseCost: 1000, cost: 1000, growthRate: 50.0, count: 0 },
 ];
 
 const countUpdate = () => {
@@ -36,7 +36,7 @@ const countUpdate = () => {
   growthrate!.innerHTML = `Growth Rate: ${totalgrowth.toFixed(2)} cookies/sec`;
   purchases!.innerHTML = ` Purchases:
     <ul>
-      ${upgrades.map((upgrade) => `<li>${upgrade.name}: ${upgrade.count}</li>`).join("")}
+      ${upgrades.map((upgrade) => `<li>${upgrade.name}: ${upgrade.count} </li>`).join("")}
     </ul>
   `;
 };
@@ -68,6 +68,9 @@ const handlepurchase = (
     clickcount -= upgrade.cost;
     upgrade.count += 1;
     totalgrowth += upgrade.growthRate;
+
+    upgrade.cost *=1.15;
+
     countUpdate();
     button.disabled = clickcount < upgrade.cost;
   }
@@ -75,7 +78,7 @@ const handlepurchase = (
 
 upgrades.forEach((upgrade) => {
   const upgradeButton = document.createElement("button");
-  upgradeButton.innerHTML = `Buy ${upgrade.name} (${upgrade.cost} 🍪, +${upgrade.growthRate} cookies/sec)`;
+  upgradeButton.innerHTML = `Buy ${upgrade.name} (${upgrade.cost.toFixed(2)} 🍪, +${upgrade.growthRate} cookies/sec)`;
   upgradeButton.disabled = true;
 
   upgradeButton.addEventListener("click", () =>
@@ -85,6 +88,7 @@ upgrades.forEach((upgrade) => {
 
   const checkUpgrade = () => {
     upgradeButton.disabled = clickcount < upgrade.cost;
+    upgradeButton.innerHTML = `Buy ${upgrade.name} (${upgrade.cost.toFixed(2)} 🍪, +${upgrade.growthRate} cookies/sec)`;
     requestAnimationFrame(checkUpgrade);
   };
   checkUpgrade();
