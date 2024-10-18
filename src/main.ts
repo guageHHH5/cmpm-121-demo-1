@@ -40,7 +40,8 @@ const upgrades = [
     cost: 10,
     growthRate: 0.1,
     count: 0,
-    description: "Every budding Wandcrafter has a faithful familiar—an animal bound to their magical aura. These creatures help you gather raw magical energy and focus it into wands."
+    description:
+      "Every budding Wandcrafter has a faithful familiar—an animal bound to their magical aura. These creatures help you gather raw magical energy and focus it into wands.",
   },
   {
     name: "The Wandmaker's Forge",
@@ -48,7 +49,8 @@ const upgrades = [
     cost: 100,
     growthRate: 2.0,
     count: 0,
-    description: "Hidden deep within the heart of the Wandspire, the Wandmaker's Forge is where legendary wands are created, capable of pulling latent energy from the magical realm itself."
+    description:
+      "Hidden deep within the heart of the Wandspire, the Wandmaker's Forge is where legendary wands are created, capable of pulling latent energy from the magical realm itself.",
   },
   {
     name: "Enchanted Spellbook",
@@ -56,7 +58,8 @@ const upgrades = [
     cost: 1000,
     growthRate: 50.0,
     count: 0,
-    description: "An ancient tome containing forgotten spells of wand-making. Each spell within produces wands by bending the laws of reality."
+    description:
+      "An ancient tome containing forgotten spells of wand-making. Each spell within produces wands by bending the laws of reality.",
   },
   {
     name: "Arcane Crystal",
@@ -64,8 +67,9 @@ const upgrades = [
     cost: 1500,
     growthRate: 150.0,
     count: 0,
-    description: "A rare crystal that radiates pure magic. These crystals were once used by the greatest Archmages to create hundreds of wands in mere moments."
-  }
+    description:
+      "A rare crystal that radiates pure magic. These crystals were once used by the greatest Archmages to create hundreds of wands in mere moments.",
+  },
 ];
 
 const countUpdate = () => {
@@ -133,10 +137,10 @@ upgrades.forEach((upgrade) => {
   checkUpgrade();
 });
 
-const activateAmulet = ()=>{
-  if(isActive || cooldown) return;
+const activateAmulet = () => {
+  if (isActive || cooldown) return;
 
-  totalgrowth *=2;
+  totalgrowth *= 2;
   isActive = true;
   cooldown = true;
 
@@ -147,17 +151,17 @@ const activateAmulet = ()=>{
   const interval = setInterval(() => {
     amuletTime--;
 
-    if(amuletTime <= 0){
+    if (amuletTime <= 0) {
       clearInterval(interval);
-      totalgrowth /=2;
+      totalgrowth /= 2;
       isActive = false;
 
       let cooldowntime = 60;
 
-      const coolinterval = setInterval(()=>{
+      const coolinterval = setInterval(() => {
         cooldowntime--;
 
-        if(cooldowntime <= 0){
+        if (cooldowntime <= 0) {
           clearInterval(coolinterval);
           AmuletButton.disabled = false;
 
@@ -166,19 +170,19 @@ const activateAmulet = ()=>{
       }, 1000);
     }
   }, 1000);
-}
+};
 
 AmuletButton.addEventListener("click", activateAmulet);
 
-const checkAmuletAvail= ()=>{
-  if(clickcount >= 1000 && !cooldown){
+const checkAmuletAvail = () => {
+  if (clickcount >= 1000 && !cooldown) {
     AmuletButton.disabled = false;
   } else {
     AmuletButton.disabled = true;
   }
 
   requestAnimationFrame(checkAmuletAvail);
-}
+};
 checkAmuletAvail();
 buttonContainer?.append(button);
 
