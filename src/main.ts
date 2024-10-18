@@ -2,7 +2,7 @@ import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
-const gameName = "Scuffed Cookie Clicker";
+const gameName = "🧙‍♂️The Lore of Wandspire🧙‍♂️";
 document.title = gameName;
 
 const header = document.createElement("h1");
@@ -16,7 +16,7 @@ const growthrate = document.getElementById("growth-rate");
 const purchases = document.getElementById("purchases");
 
 const button = document.createElement("button");
-button.innerHTML = "🍪";
+button.innerHTML = "🪄";
 
 button.style.padding = "100px, 1000px";
 button.style.fontSize = "50px";
@@ -26,14 +26,14 @@ let clickcount = 0;
 let lastFrame = 0;
 let totalgrowth = 0;
 const upgrades = [
-  { name: "A", baseCost: 10, cost: 10, growthRate: 0.1, count: 0 },
-  { name: "B", baseCost: 100, cost: 100, growthRate: 2.0, count: 0 },
-  { name: "C", baseCost: 1000, cost: 1000, growthRate: 50.0, count: 0 },
+  { name: "Apprentice's Familiar", baseCost: 10, cost: 10, growthRate: 0.1, count: 0 },
+  { name: "The Wandmaker's Forge", baseCost: 100, cost: 100, growthRate: 2.0, count: 0 },
+  { name: "Enchanted Spellbook", baseCost: 1000, cost: 1000, growthRate: 50.0, count: 0 },
 ];
 
 const countUpdate = () => {
-  counter!.innerHTML = `${clickcount.toFixed(0)} cookie(s)`;
-  growthrate!.innerHTML = `Growth Rate: ${totalgrowth.toFixed(2)} cookies/sec`;
+  counter!.innerHTML = `${clickcount.toFixed(0)} wand(s)`;
+  growthrate!.innerHTML = `Growth Rate: ${totalgrowth.toFixed(2)} wands/sec`;
   purchases!.innerHTML = ` Purchases:
     <ul>
       ${upgrades.map((upgrade) => `<li>${upgrade.name}: ${upgrade.count} </li>`).join("")}
@@ -78,7 +78,7 @@ const handlepurchase = (
 
 upgrades.forEach((upgrade) => {
   const upgradeButton = document.createElement("button");
-  upgradeButton.innerHTML = `Buy ${upgrade.name} (${upgrade.cost.toFixed(2)} 🍪, +${upgrade.growthRate} cookies/sec)`;
+  upgradeButton.innerHTML = `${upgrade.name} (${upgrade.cost.toFixed(2)} 🪄, +${upgrade.growthRate} wands/sec)`;
   upgradeButton.disabled = true;
 
   upgradeButton.addEventListener("click", () =>
@@ -88,7 +88,7 @@ upgrades.forEach((upgrade) => {
 
   const checkUpgrade = () => {
     upgradeButton.disabled = clickcount < upgrade.cost;
-    upgradeButton.innerHTML = `Buy ${upgrade.name} (${upgrade.cost.toFixed(2)} 🍪, +${upgrade.growthRate} cookies/sec)`;
+    upgradeButton.innerHTML = `${upgrade.name} (${upgrade.cost.toFixed(2)} 🪄, +${upgrade.growthRate} wands/sec)`;
     requestAnimationFrame(checkUpgrade);
   };
   checkUpgrade();
