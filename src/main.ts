@@ -26,6 +26,7 @@ const AmuletButton = document.createElement("button");
 AmuletButton.innerHTML = "🧿";
 AmuletButton.disabled = true;
 document.body.append(AmuletButton);
+AmuletButton.title = "Ancient amulet that doubles wand production for 30 seconds."
 
 let isActive = false;
 let cooldown = false;
@@ -119,8 +120,8 @@ const handlepurchase = (
 
 upgrades.forEach((upgrade) => {
   const upgradeButton = document.createElement("button");
-  upgradeButton.innerHTML = `${upgrade.name} (${upgrade.cost.toFixed(2)} 🪄, +${upgrade.growthRate} wands/sec) <br>
-    <small>${upgrade.description}</small>`;
+  upgradeButton.innerHTML = `${upgrade.name} (${upgrade.cost.toFixed(2)} 🪄, +${upgrade.growthRate} wands/sec)`;
+  upgradeButton.title = upgrade.description;
   upgradeButton.disabled = true;
 
   upgradeButton.addEventListener("click", () =>
@@ -130,8 +131,7 @@ upgrades.forEach((upgrade) => {
 
   const checkUpgrade = () => {
     upgradeButton.disabled = clickcount < upgrade.cost;
-    upgradeButton.innerHTML = `${upgrade.name} (${upgrade.cost.toFixed(2)} 🪄, +${upgrade.growthRate} wands/sec) <br>
-    <small>${upgrade.description}</small>`;
+    upgradeButton.innerHTML = `${upgrade.name} (${upgrade.cost.toFixed(2)} 🪄, +${upgrade.growthRate} wands/sec)`;
     requestAnimationFrame(checkUpgrade);
   };
   checkUpgrade();
