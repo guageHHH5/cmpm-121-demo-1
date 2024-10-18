@@ -26,7 +26,8 @@ const AmuletButton = document.createElement("button");
 AmuletButton.innerHTML = "🧿";
 AmuletButton.disabled = true;
 document.body.append(AmuletButton);
-AmuletButton.title = "Ancient amulet that doubles wand production for 30 seconds."
+AmuletButton.title =
+  "Ancient amulet that doubles wand production for 30 seconds.";
 
 let isActive = false;
 let cooldown = false;
