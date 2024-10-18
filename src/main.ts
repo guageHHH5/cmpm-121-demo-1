@@ -12,26 +12,34 @@ app.append(header);
 const buttonContainer = document.getElementById("button-container");
 const counter = document.getElementById("counter");
 const upgradeContainer = document.getElementById("upgrade-container");
+const growthrate = document.getElementById("growth-rate");
+const purchases = document.getElementById("purchases");
 
 const button = document.createElement("button");
 button.innerHTML = "🍪";
 
-const upgradeButton = document.createElement("button");
-upgradeButton.innerHTML = "auto increment (10 🍪)";
-upgradeButton.disabled = true;
 
 button.style.padding = "100px, 1000px";
 button.style.fontSize = "50px";
 button.style.cursor = "pointer";
 
 let clickcount = 0;
-let autoIncRate = 0;
 let lastFrame = 0;
+let totalgrowth = 0;
+const upgrades = [
+  { name: "A", cost: 10, growthRate: 0.1, count: 0 },
+  { name: "B", cost: 100, growthRate: 2.0, count: 0 },
+  { name: "C", cost: 1000, growthRate: 50.0, count: 0 }
+];
 
 const countUpdate = () => {
   counter!.innerHTML = `${clickcount.toFixed(0)} cookie(s)`;
-
-  upgradeButton.disabled = clickcount < 10;
+  growthrate!.innerHTML = `Growth Rate: ${totalgrowth.toFixed(2)} cookies/sec`
+  purchases!.innerHTML = ` Purchases:
+    <ul>
+      ${upgrades.map(upgrade => `<li>${upgrade.name}: ${upgrade.count}</li>`).join('')}
+    </ul>
+  `;
 };
 
 const animatedIncrement = (timestamp: number) => {
@@ -40,8 +48,8 @@ const animatedIncrement = (timestamp: number) => {
   const deltaT = (timestamp - lastFrame) / 1000;
   lastFrame = timestamp;
 
-  if (autoIncRate > 0) {
-    clickcount += autoIncRate * deltaT;
+  if (totalgrowth > 0) {
+    clickcount += totalgrowth * deltaT;
     countUpdate();
   }
 
@@ -53,15 +61,32 @@ button.addEventListener("click", () => {
   countUpdate();
 });
 
-upgradeButton.addEventListener("click", () => {
-  if (clickcount >= 10) {
-    clickcount -= 10;
-    autoIncRate += 1;
+const handlepurchase = (upgrade: {name : string; cost : number; growthRate : number; count : number}, button : HTMLButtonElement)=>{
+  if(clickcount >= upgrade.cost){
+    clickcount -= upgrade.cost;
+    upgrade.count += 1;
+    totalgrowth += upgrade.growthRate;
     countUpdate();
+    button.disabled = clickcount < upgrade.cost;
   }
-});
+}
+
+upgrades.forEach(upgrade => {
+  const upgradeButton = document.createElement("button");
+  upgradeButton.innerHTML = `Buy ${upgrade.name} (${upgrade.cost} 🍪, +${upgrade.growthRate} cookies/sec)`;
+  upgradeButton.disabled = true;
+
+  upgradeButton.addEventListener("click", ()=> handlepurchase(upgrade, upgradeButton));
+  upgradeContainer?.append(upgradeButton);
+
+  const checkUpgrade = ()=>{
+    upgradeButton.disabled = clickcount < upgrade.cost;
+    requestAnimationFrame(checkUpgrade);
+  };
+  checkUpgrade();
+})
 
 buttonContainer?.append(button);
-upgradeContainer?.append(upgradeButton);
+
 
 requestAnimationFrame(animatedIncrement);
