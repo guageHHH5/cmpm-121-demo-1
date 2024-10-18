@@ -69,7 +69,7 @@ const handlepurchase = (
     upgrade.count += 1;
     totalgrowth += upgrade.growthRate;
 
-    upgrade.cost *=1.15;
+    upgrade.cost *= 1.15;
 
     countUpdate();
     button.disabled = clickcount < upgrade.cost;
