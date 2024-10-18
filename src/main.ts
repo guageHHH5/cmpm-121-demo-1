@@ -26,9 +26,27 @@ let clickcount = 0;
 let lastFrame = 0;
 let totalgrowth = 0;
 const upgrades = [
-  { name: "Apprentice's Familiar", baseCost: 10, cost: 10, growthRate: 0.1, count: 0 },
-  { name: "The Wandmaker's Forge", baseCost: 100, cost: 100, growthRate: 2.0, count: 0 },
-  { name: "Enchanted Spellbook", baseCost: 1000, cost: 1000, growthRate: 50.0, count: 0 },
+  {
+    name: "Apprentice's Familiar",
+    baseCost: 10,
+    cost: 10,
+    growthRate: 0.1,
+    count: 0,
+  },
+  {
+    name: "The Wandmaker's Forge",
+    baseCost: 100,
+    cost: 100,
+    growthRate: 2.0,
+    count: 0,
+  },
+  {
+    name: "Enchanted Spellbook",
+    baseCost: 1000,
+    cost: 1000,
+    growthRate: 50.0,
+    count: 0,
+  },
 ];
 
 const countUpdate = () => {
